@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    Schema::create('tickets', function (Blueprint $table) {
+        $table->id();
+        $table->string('titulo');
+        $table->text('descricao');
+        $table->string('status')->index();
+        $table->string('prioridade')->index();
+        $table->foreignId('responsavel_id')
+            ->constrained('users')
+            ->restrictOnDelete();
+        $table->timestamps();
+    });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tickets');
