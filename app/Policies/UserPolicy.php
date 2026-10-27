@@ -45,26 +45,11 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $this->podeGerenciarUsuarios($user);
+        return $this->podeGerenciarUsuarios($user) && $user->isNot($model);
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, User $model): bool
-    {
-        return $this->podeGerenciarUsuarios($user);
-    }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, User $model): bool
-    {
-        return $this->podeGerenciarUsuarios($user);
-    }
-
-     private function podeGerenciarUsuarios(User $user): bool
+    private function podeGerenciarUsuarios(User $user): bool
     {
         return $user->checkPermissionTo(Permissao::GerenciarUsuarios->value);
     }
