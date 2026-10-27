@@ -80,4 +80,18 @@ class UserController extends Controller
             ->route('usuarios.index')
             ->with('status', __('Usuário atualizado com sucesso.'));
     }
+
+     /**
+     * Exclui um usuário.
+     */
+    public function destroy(User $usuario): RedirectResponse
+    {
+        Gate::authorize('delete', $usuario);
+
+        $this->userService->excluir($usuario);
+
+        return redirect()
+            ->route('usuarios.index')
+            ->with('status', __('Usuário excluído com sucesso.'));
+    }
 }

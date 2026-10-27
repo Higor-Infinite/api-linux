@@ -44,4 +44,15 @@ class UserService
             return $usuario;
         });
     }
+
+     /**
+     * Exclui um usuário.
+     * A exclusão pelo model dispara o evento que remove os vínculos de perfis e permissões.
+     */
+    public function excluir(User $usuario): void
+    {
+        DB::transaction(function () use ($usuario) {
+            $usuario->delete();
+        });
+    }
 }

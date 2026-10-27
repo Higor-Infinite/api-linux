@@ -34,12 +34,29 @@
                             {{ $usuario->getRoleNames()->implode(', ') ?: __('Sem perfil') }}
                         </flux:badge>
                     </flux:table.cell>
-                    <flux:table.cell class="text-end">
-                        @can('update', $usuario)
-                            <flux:button size="sm" variant="ghost" icon="pencil-square" :href="route('usuarios.edit', $usuario)">
-                                {{ __('Editar') }}
-                            </flux:button>
-                        @endcan
+                     <flux:table.cell class="text-end">
+                        <div class="flex items-center justify-end gap-2">
+                            @can('update', $usuario)
+                                <flux:button size="sm" variant="ghost" icon="pencil-square" :href="route('usuarios.edit', $usuario)">
+                                    {{ __('Editar') }}
+                                </flux:button>
+                            @endcan
+
+                            @can('delete', $usuario)
+                                <form
+                                    method="POST"
+                                    action="{{ route('usuarios.destroy', $usuario) }}"
+                                    onsubmit="return confirm({{ Js::from(__('Excluir o usuário :nome? Esta ação não pode ser desfeita.', ['nome' => $usuario->name])) }})"
+                                >
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <flux:button size="sm" variant="danger" icon="trash" type="submit">
+                                        {{ __('Excluir') }}
+                                    </flux:button>
+                                </form>
+                            @endcan
+                        </div>
                     </flux:table.cell>
                 </flux:table.row>
             @empty
