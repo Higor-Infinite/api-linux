@@ -13,5 +13,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 require __DIR__.'/settings.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('usuarios', [UserController::class, 'index'])->name('usuarios.index');
+    Route::resource('usuarios', UserController::class)
+        ->only(['index', 'create', 'store', 'edit', 'update']);
 });

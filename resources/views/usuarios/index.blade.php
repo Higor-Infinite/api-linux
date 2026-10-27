@@ -1,15 +1,27 @@
 <x-layouts::app :title="__('Usuários')">
-    <flux:heading size="xl">{{ __('Usuários') }}</flux:heading>
+     <div class="flex items-center justify-between gap-4">
+        <div>
+            <flux:heading size="xl">{{ __('Usuários') }}</flux:heading>
+            <flux:text class="mt-2">{{ __('Lista de usuários.') }}</flux:text>
+        </div>
 
-    <flux:text class="mt-2">
-        {{ __('Lista de usuários.') }}
-    </flux:text>
+        @can('create', App\Models\User::class)
+            <flux:button variant="primary" icon="plus" :href="route('usuarios.create')">
+                {{ __('Novo usuário') }}
+            </flux:button>
+        @endcan
+    </div>
+
+    @if (session('status'))
+        <flux:callout variant="success" icon="check-circle" class="mt-6" :heading="session('status')" />
+    @endif
 
     <flux:table class="mt-6">
         <flux:table.columns>
             <flux:table.column>{{ __('Nome') }}</flux:table.column>
             <flux:table.column>{{ __('E-mail') }}</flux:table.column>
             <flux:table.column>{{ __('Perfil') }}</flux:table.column>
+            <flux:table.column></flux:table.column>
         </flux:table.columns>
 
         <flux:table.rows>
@@ -22,10 +34,17 @@
                             {{ $usuario->getRoleNames()->implode(', ') ?: __('Sem perfil') }}
                         </flux:badge>
                     </flux:table.cell>
+                    <flux:table.cell class="text-end">
+                        @can('update', $usuario)
+                            <flux:button size="sm" variant="ghost" icon="pencil-square" :href="route('usuarios.edit', $usuario)">
+                                {{ __('Editar') }}
+                            </flux:button>
+                        @endcan
+                    </flux:table.cell>
                 </flux:table.row>
             @empty
                 <flux:table.row>
-                    <flux:table.cell colspan="3">{{ __('Nenhum usuário cadastrado.') }}</flux:table.cell>
+                    <flux:table.cell colspan="4">{{ __('Nenhum usuário cadastrado.') }}</flux:table.cell>
                 </flux:table.row>
             @endforelse
         </flux:table.rows>
