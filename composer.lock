@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51f7d028e391d59f9c0c345b5313935c",
+    "content-hash": "fa5971d0ce0bac96cb32cdaba8002a06",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -4225,16 +4225,16 @@
         },
         {
             "name": "spatie/laravel-model-states",
-            "version": "2.14.2",
+            "version": "2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-model-states.git",
-                "reference": "a4a8451a28181005b90f1d79ed4e502573f50309"
+                "reference": "8901805a3eab57a4c940533562fd9121fc3d0fad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-model-states/zipball/a4a8451a28181005b90f1d79ed4e502573f50309",
-                "reference": "a4a8451a28181005b90f1d79ed4e502573f50309",
+                "url": "https://api.github.com/repos/spatie/laravel-model-states/zipball/8901805a3eab57a4c940533562fd9121fc3d0fad",
+                "reference": "8901805a3eab57a4c940533562fd9121fc3d0fad",
                 "shasum": ""
             },
             "require": {
@@ -4290,7 +4290,7 @@
                 "state"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-model-states/tree/2.14.2"
+                "source": "https://github.com/spatie/laravel-model-states/tree/2.14.0"
             },
             "funding": [
                 {
@@ -4302,7 +4302,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-22T06:47:35+00:00"
+            "time": "2026-04-20T13:54:44+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
