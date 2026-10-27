@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Enums\Permissao;
+use App\Http\Controllers\UserController;
+
 
 Route::redirect('/', '/dashboard')->name('home');
 
@@ -11,7 +12,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__.'/settings.php';
 
-Route::middleware(['auth', 'can:' . Permissao::GerenciarUsuarios->value])
-    ->group(function () {
-        Route::view('usuarios', 'usuarios.index')->name('usuarios.index');
-    });
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('usuarios', [UserController::class, 'index'])->name('usuarios.index');
+});

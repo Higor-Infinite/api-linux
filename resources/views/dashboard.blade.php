@@ -12,7 +12,7 @@
                 </flux:badge>
             </div>
             
-            @can(App\Enums\Permissao::GerenciarUsuarios->value)
+            @can('viewAny', App\Models\User::class)
                 <div class="mt-4">
                     <flux:button
                         variant="primary"
@@ -24,7 +24,7 @@
                     </flux:button>
                 </div>
             @endcan
-            
+
         </div>
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
             <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
