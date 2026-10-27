@@ -31,7 +31,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => $this->nameRules(),
-            'email' => $this->emailRules(),
+            'email' => 'required|email',
             'observacoes' => ['nullable', 'string', 'max:2000'],
             'password' => $this->passwordRules(),
             'perfil' => ['required', Rule::enum(Perfil::class)],
