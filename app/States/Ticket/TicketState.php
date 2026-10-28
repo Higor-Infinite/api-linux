@@ -22,23 +22,11 @@ abstract class TicketState extends State
 
     public static function config(): StateConfig
     {
-        $estados = [
-            Aberto::class,
-            EmAndamento::class,
-            Resolvido::class,
-            Fechado::class,
-        ];
-
-        $config = parent::config()->default(Aberto::class);
-
-        foreach ($estados as $de) {
-            foreach ($estados as $para) {
-                if ($de !== $para) {
-                    $config->allowTransition($de, $para);
-                }
-            }
-        }
-
-        return $config;
+        return parent::config()
+            ->default(Aberto::class)
+            ->allowTransition(Aberto::class, EmAndamento::class)
+            ->allowTransition(EmAndamento::class, Resolvido::class)
+            ->allowTransition(Resolvido::class, Fechado::class)
+            ->allowTransition(Fechado::class, EmAndamento::class);
     }
 }
