@@ -15,4 +15,7 @@ require __DIR__.'/settings.php';
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('usuarios', UserController::class)
         ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+     Route::resource('tickets', TicketController::class)
+        ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 });
