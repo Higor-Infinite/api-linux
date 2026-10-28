@@ -25,6 +25,7 @@ class PerfisEPermissoesSeeder extends Seeder
         $admin->syncPermissions([
             Permissao::GerenciarUsuarios->value,
             Permissao::GerenciarTickets->value,
+            Permissao::CriarTickets->value,
             Permissao::AlterarStatusTickets->value,
             Permissao::ExcluirTickets->value,
         ]);

@@ -29,7 +29,7 @@ class TicketPolicy
      */
     public function create(User $user): bool
     {
-        return $this->podeGerenciarTickets($user);
+        return $user->checkPermissionTo(Permissao::CriarTickets->value);
     }
 
     /**
