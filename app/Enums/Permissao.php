@@ -9,4 +9,6 @@ enum Permissao: string
     case AlterarStatusTickets = 'tickets.alterar-status';
     case ExcluirTickets = 'tickets.excluir';
     case CriarTickets = 'tickets.criar';
+    case EditarTodosTickets = 'tickets.editar-todos';
+
 }

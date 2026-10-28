@@ -31,13 +31,14 @@ class TicketPolicy
     {
         return $user->checkPermissionTo(Permissao::CriarTickets->value);
     }
-
-    /**
+     /**
      * Editar título, descrição, prioridade e responsável.
+     * Admin edita qualquer ticket; os demais, só os que são responsáveis.
      */
     public function update(User $user, Ticket $ticket): bool
     {
-        return $this->podeGerenciarTickets($user);
+        return $this->podeGerenciarTickets($user)
+            && $this->podeEditarEsteTicket($user, $ticket);
     }
 
     /**
@@ -46,7 +47,16 @@ class TicketPolicy
      */
     public function alterarStatus(User $user, Ticket $ticket): bool
     {
-        return $user->checkPermissionTo(Permissao::AlterarStatusTickets->value);
+        return $user->checkPermissionTo(Permissao::AlterarStatusTickets->value)
+            && $this->podeEditarEsteTicket($user, $ticket);
+    }
+
+    
+
+    private function podeEditarEsteTicket(User $user, Ticket $ticket): bool
+    {
+        return $user->checkPermissionTo(Permissao::EditarTodosTickets->value)
+            || $ticket->responsavel()->is($user);
     }
 
     /**

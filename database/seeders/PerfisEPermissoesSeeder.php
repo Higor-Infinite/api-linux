@@ -28,6 +28,7 @@ class PerfisEPermissoesSeeder extends Seeder
             Permissao::CriarTickets->value,
             Permissao::AlterarStatusTickets->value,
             Permissao::ExcluirTickets->value,
+            Permissao::EditarTodosTickets->value,
         ]);
 
         $operador->syncPermissions([
