@@ -15,17 +15,22 @@ class PerfisEPermissoesSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        
-        $gerenciarUsuarios = Permission::firstOrCreate([
-            'name' => Permissao::GerenciarUsuarios->value,
+        foreach (Permissao::cases() as $permissao) {
+            Permission::firstOrCreate(['name' => $permissao->value]);
+        }
+
+        $admin = Role::firstOrCreate(['name' => Perfil::Admin->value]);
+        $operador = Role::firstOrCreate(['name' => Perfil::Operador->value]);
+
+        $admin->syncPermissions([
+            Permissao::GerenciarUsuarios->value,
+            Permissao::GerenciarTickets->value,
+            Permissao::AlterarStatusTickets->value,
+            Permissao::ExcluirTickets->value,
         ]);
 
-        
-        $admin = Role::firstOrCreate(['name' => Perfil::Admin->value]);
-        Role::firstOrCreate(['name' => Perfil::Operador->value]);
-
-       
-        $admin->syncPermissions([$gerenciarUsuarios]);
-        
+        $operador->syncPermissions([
+            Permissao::GerenciarTickets->value,
+        ]);
     }
 }
