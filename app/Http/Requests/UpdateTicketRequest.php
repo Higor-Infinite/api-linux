@@ -27,6 +27,7 @@ class UpdateTicketRequest extends FormRequest
     {
         return [
             ...$this->ticketRules(),
+            'prioridade' => $this->prioridadeRules(),
             'status' => $this->statusRules(),
         ];
     }
@@ -39,6 +40,7 @@ class UpdateTicketRequest extends FormRequest
         return [
             'status.prohibited' => __('Você não tem permissão para alterar o status do ticket.'),
             'status.in' => __('Transição de status não permitida.'),
+            'prioridade.prohibited' => __('Você não tem permissão para alterar a prioridade do ticket.'),
         ];
     }
 
@@ -62,6 +64,21 @@ class UpdateTicketRequest extends FormRequest
         ];
 
         return ['required', 'string', Rule::in($permitidos)];
+    }
+
+    /**
+     * Sem permissão: o campo é proibido (o select vem desabilitado e não é enviado).
+     * Com permissão: as regras normais de prioridade.
+     *
+     * @return array<int, ValidationRule|string>
+     */
+    private function prioridadeRules(): array
+    {
+        if ($this->user()->cannot('alterarPrioridade', $this->ticketEditado())) {
+            return ['prohibited'];
+        }
+
+        return $this->ticketRules()['prioridade'];
     }
 
     /**

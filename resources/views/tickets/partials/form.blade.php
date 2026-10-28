@@ -14,13 +14,23 @@
 
     <flux:textarea name="descricao" :label="__('Descrição')" rows="5" required>{{ old('descricao', $ticket?->descricao) }}</flux:textarea>
 
-    <flux:select name="prioridade" :label="__('Prioridade')" :placeholder="__('Selecione...')" required>
-        @foreach ($prioridades as $prioridade)
-            <flux:select.option :value="$prioridade->value" :selected="$prioridadeAtual === $prioridade->value">
-                {{ $prioridade->label() }}
-            </flux:select.option>
-        @endforeach
-    </flux:select>
+        @if ($podeAlterarPrioridade)
+        <flux:select name="prioridade" :label="__('Prioridade')" :placeholder="__('Selecione...')" required>
+            @foreach ($prioridades as $prioridade)
+                <flux:select.option :value="$prioridade->value" :selected="$prioridadeAtual === $prioridade->value">
+                    {{ $prioridade->label() }}
+                </flux:select.option>
+            @endforeach
+        </flux:select>
+        @else
+        <flux:select
+            :label="__('Prioridade')"
+            :description="__('Somente administradores podem alterar a prioridade.')"
+            disabled
+        >
+            <flux:select.option selected>{{ $ticket->prioridade->label() }}</flux:select.option>
+        </flux:select>
+        @endif
 
     <flux:select name="responsavel_id" :label="__('Responsável')" :placeholder="__('Selecione...')" required>
         @foreach ($responsaveis as $responsavel)

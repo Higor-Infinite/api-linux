@@ -10,5 +10,6 @@ enum Permissao: string
     case ExcluirTickets = 'tickets.excluir';
     case CriarTickets = 'tickets.criar';
     case EditarTodosTickets = 'tickets.editar-todos';
+    case AlterarPrioridadeTickets = 'tickets.alterar-prioridade';
 
 }

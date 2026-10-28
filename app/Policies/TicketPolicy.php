@@ -51,7 +51,11 @@ class TicketPolicy
             && $this->podeEditarEsteTicket($user, $ticket);
     }
 
-    
+    public function alterarPrioridade(User $user, Ticket $ticket): bool
+    {
+        return $user->checkPermissionTo(Permissao::AlterarPrioridadeTickets->value)
+            && $this->podeEditarEsteTicket($user, $ticket);
+    }
 
     private function podeEditarEsteTicket(User $user, Ticket $ticket): bool
     {
