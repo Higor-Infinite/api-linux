@@ -16,6 +16,10 @@
         <flux:callout variant="success" icon="check-circle" class="mt-6" :heading="session('status')" />
     @endif
 
+    @error('usuario')
+        <flux:callout variant="danger" icon="x-circle" class="mt-6" :heading="$message" />
+    @enderror
+
     <flux:table class="mt-6">
         <flux:table.columns>
             <flux:table.column>{{ __('Nome') }}</flux:table.column>

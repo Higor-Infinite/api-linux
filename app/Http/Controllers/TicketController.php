@@ -44,6 +44,7 @@ class TicketController extends Controller
         return view('tickets.create', [
             'prioridades' => Prioridade::cases(),
             'responsaveis' => $this->responsaveis(),
+            'statusInicial' => (new Ticket)->status,
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class UserService
 {
@@ -45,12 +46,24 @@ class UserService
         });
     }
 
-     /**
+        /**
      * Exclui um usuário.
+     * Usuários responsáveis por tickets não podem ser excluídos: os tickets precisam ser reatribuídos antes.
      * A exclusão pelo model dispara o evento que remove os vínculos de perfis e permissões.
      */
     public function excluir(User $usuario): void
     {
+        $quantidadeTickets = $usuario->tickets()->count();
+
+        if ($quantidadeTickets > 0) {
+            throw ValidationException::withMessages([
+                'usuario' => __('O usuário :nome é responsável por :quantidade ticket(s). Reatribua-os antes de excluir.', [
+                    'nome' => $usuario->name,
+                    'quantidade' => $quantidadeTickets,
+                ]),
+            ]);
+        }
+
         DB::transaction(function () use ($usuario) {
             $usuario->delete();
         });

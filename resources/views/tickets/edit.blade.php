@@ -27,7 +27,7 @@
                     {{ $ticket->status->label() }}
                 </flux:badge>
                 <flux:text class="mt-2 text-sm">
-                    {{ __('Somente administradores podem alterar o status.') }}
+                     {{ __('Você não tem permissão para alterar o status.') }}
                 </flux:text>
             @endcan
         </div>
