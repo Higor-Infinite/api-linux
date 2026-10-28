@@ -30,12 +30,14 @@ class PerfisEPermissoesSeeder extends Seeder
             Permissao::ExcluirTickets->value,
             Permissao::EditarTodosTickets->value,
             Permissao::AlterarPrioridadeTickets->value,
+            Permissao::AlterarNomeTickets->value,
+            Permissao::AlterarResponsavelTickets->value,
 
         ]);
 
         $operador->syncPermissions([
             Permissao::GerenciarTickets->value,
-            Permissao::AlterarStatusTickets->value,
+            Permissao::AlterarPrioridadeTickets->value,
         ]);
     }
 }

@@ -27,7 +27,9 @@ class UpdateTicketRequest extends FormRequest
     {
         return [
             ...$this->ticketRules(),
+            'titulo' => $this->tituloRules(),
             'prioridade' => $this->prioridadeRules(),
+            'responsavel_id' => $this->responsavelRules(),
             'status' => $this->statusRules(),
         ];
     }
@@ -41,6 +43,8 @@ class UpdateTicketRequest extends FormRequest
             'status.prohibited' => __('Você não tem permissão para alterar o status do ticket.'),
             'status.in' => __('Transição de status não permitida.'),
             'prioridade.prohibited' => __('Você não tem permissão para alterar a prioridade do ticket.'),
+            'titulo.prohibited' => __('Você não tem permissão para alterar o título do ticket.'),
+            'responsavel_id.prohibited' => __('Você não tem permissão para alterar o responsável do ticket.'),
         ];
     }
 
@@ -79,6 +83,30 @@ class UpdateTicketRequest extends FormRequest
         }
 
         return $this->ticketRules()['prioridade'];
+    }
+
+        /**
+     * @return array<int, ValidationRule|string>
+     */
+    private function tituloRules(): array
+    {
+        if ($this->user()->cannot('alterarNome', $this->ticketEditado())) {
+            return ['prohibited'];
+        }
+
+        return $this->ticketRules()['titulo'];
+    }
+
+    /**
+     * @return array<int, ValidationRule|string>
+     */
+    private function responsavelRules(): array
+    {
+        if ($this->user()->cannot('alterarResponsavel', $this->ticketEditado())) {
+            return ['prohibited'];
+        }
+
+        return $this->ticketRules()['responsavel_id'];
     }
 
     /**

@@ -11,5 +11,7 @@ enum Permissao: string
     case CriarTickets = 'tickets.criar';
     case EditarTodosTickets = 'tickets.editar-todos';
     case AlterarPrioridadeTickets = 'tickets.alterar-prioridade';
-
+    case AlterarNomeTickets = 'tickets.alterar-nome';
+    case AlterarResponsavelTickets = 'tickets.alterar-responsavel';
+    
 }

@@ -63,6 +63,18 @@ class TicketPolicy
             || $ticket->responsavel()->is($user);
     }
 
+    public function alterarNome(User $user, Ticket $ticket): bool
+    {
+        return $user->checkPermissionTo(Permissao::AlterarNomeTickets->value)
+            && $this->podeEditarEsteTicket($user, $ticket);
+    }
+
+    public function alterarResponsavel(User $user, Ticket $ticket): bool
+    {
+        return $user->checkPermissionTo(Permissao::AlterarResponsavelTickets->value)
+            && $this->podeEditarEsteTicket($user, $ticket);
+    }
+
     /**
      * Excluir um ticket.
      */

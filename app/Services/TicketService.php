@@ -22,7 +22,7 @@ class TicketService
      * Atualiza os campos editáveis e, se informado, muda o status pela máquina de estados.
      * Se a transição falhar, nenhuma alteração é salva.
      *
-     * @param  array{titulo: string, descricao: string, prioridade: string, responsavel_id: int, status?: string}  $dados
+     * @param  array{titulo?: string, descricao: string, prioridade?: string, responsavel_id?: int, status?: string}  $dados
      */
     public function atualizar(Ticket $ticket, array $dados): Ticket
     {
