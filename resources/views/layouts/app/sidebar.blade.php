@@ -15,6 +15,18 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+
+                    @can('viewAny', App\Models\Ticket::class)
+                        <flux:sidebar.item icon="ticket" :href="route('tickets.index')" :current="request()->routeIs('tickets.*')" wire:navigate>
+                            {{ __('Tickets') }}
+                        </flux:sidebar.item>
+                    @endcan
+
+                    @can('viewAny', App\Models\User::class)
+                        <flux:sidebar.item icon="users" :href="route('usuarios.index')" :current="request()->routeIs('usuarios.*')" wire:navigate>
+                            {{ __('Usuários') }}
+                        </flux:sidebar.item>
+                    @endcan
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
