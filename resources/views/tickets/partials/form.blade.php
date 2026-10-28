@@ -1,6 +1,8 @@
 @php
     $prioridadeAtual = old('prioridade', $ticket?->prioridade->value);
     $responsavelAtual = (string) old('responsavel_id', $ticket?->responsavel_id);
+
+    $podeAlterarPrioridade = $ticket === null || auth()->user()->can('tickets.alterar-prioridade', $ticket);
 @endphp
 
 <div class="flex flex-col gap-6">
